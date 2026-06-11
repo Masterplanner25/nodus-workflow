@@ -12,7 +12,7 @@ restart. No required external dependencies — pure stdlib.
 > `nodus_workflow` package (`src/nodus_workflow/`) with a full HTTP/CLI
 > server, SQLite store, and nodus-lang integration. The two are distinct.
 
-> **Status:** v0.1.0 — prepared, not yet published.
+> **Status:** v0.1.0 — published on [PyPI](https://pypi.org/project/nodus-workflow/).
 
 ---
 
