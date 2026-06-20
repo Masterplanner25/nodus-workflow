@@ -1,5 +1,7 @@
 # nodus-workflow
 
+> **Status:** v0.1.0 — published on [PyPI](https://pypi.org/project/nodus-workflow/).
+
 **Declarative DAG workflows with WAIT/RESUME, priority scheduling, and
 distributed rehydration for Nodus AI systems.**
 
