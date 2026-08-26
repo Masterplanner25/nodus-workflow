@@ -1,27 +1,50 @@
-# nodus-workflow
+# nodus-flow
 
-> **Status:** v0.1.0 — published on [PyPI](https://pypi.org/project/nodus-workflow/).
+> **Status:** v0.2.0 — renamed from `nodus-workflow`. See [Naming](#naming).
 
-**Declarative DAG workflows with WAIT/RESUME, priority scheduling, and
-distributed rehydration for Nodus AI systems.**
+**A standalone asyncio DAG runner with WAIT/RESUME, priority scheduling and
+rehydration.** Define DAGs, execute them with priority-queued scheduling,
+suspend nodes on events, and rehydrate WAITING runs after a process restart.
+No required external dependencies — pure stdlib.
 
-Standalone workflow primitives: define DAGs, execute them with priority-queued
-scheduling, suspend nodes on events, and rehydrate WAITING runs after process
-restart. No required external dependencies — pure stdlib.
+## Naming
 
-> **Note on naming:** This is the standalone `nodus-workflow` package
-> (`C:\dev\nodus-workflow`). The nodus-lang runtime also ships an in-tree
-> `nodus_workflow` package (`src/nodus_workflow/`) with a full HTTP/CLI
-> server, SQLite store, and nodus-lang integration. The two are distinct.
+**This is not the engine behind the Nodus `workflow` keyword.** That engine
+ships inside `nodus-lang` and is not separately installable:
 
-> **Status:** v0.1.0 — published on [PyPI](https://pypi.org/project/nodus-workflow/).
+```
+workflow build {
+    step compile { ... }
+    step test after compile { ... }
+}
+```
+
+If that is what you are looking for, `pip install nodus-lang` — nothing on this
+page will run it.
+
+`nodus-flow` is a Python library with its own vocabulary (`FlowDefinition`,
+`FlowNode`, `FlowRun`, `FlowExecutor`) and its own execution model. It shares no
+code with nodus-lang and does not depend on it. Its design came from
+aindy-runtime rather than from Nodus, which is why it reads like a second
+workflow engine — it is one, for a different host.
+
+**Why the rename.** Published as `nodus-workflow`, the name read as "the Nodus
+workflow implementation" and misled a source-level architecture audit of Nodus
+into reporting that the project had "forked its own thesis" — a wrong
+top-priority finding that reached the governance record and stood for months.
+The name was the whole cause: the auditor never read the PyPI metadata, and an
+earlier rename of the *import* name had not reached them either. Tracked as
+[nodus-lang#483](https://github.com/Masterplanner25/Nodus/issues/483).
+
+`pip install nodus-workflow` still works and now installs this package, but the
+old name is deprecated and will not receive releases.
 
 ---
 
 ## Install
 
 ```bash
-pip install nodus-workflow
+pip install nodus-flow
 ```
 
 ---
@@ -45,7 +68,7 @@ pip install nodus-workflow
 
 ```python
 import asyncio
-from nodus_workflow import (
+from nodus_flow import (
     FlowDefinition, FlowNode, FlowEdge, FlowExecutor,
     InMemoryRunStore, SchedulerEngine,
 )
@@ -85,7 +108,7 @@ print(run.status)   # FlowStatus.COMPLETED
 ## WAIT/RESUME semantics
 
 ```python
-from nodus_workflow import WorkflowWaitSignal
+from nodus_flow import WorkflowWaitSignal
 
 async def approval_node(ctx):
     raise WorkflowWaitSignal(
@@ -105,8 +128,8 @@ and is parked in the scheduler until `notify_event` or `resume` is called.
 ## SchedulerEngine
 
 ```python
-from nodus_workflow import SchedulerEngine
-from nodus_workflow.run import FlowStatus
+from nodus_flow import SchedulerEngine
+from nodus_flow.run import FlowStatus
 
 scheduler = SchedulerEngine()
 
@@ -127,7 +150,7 @@ scheduler.cancel_wait(run_id)
 ## FlowRehydrator
 
 ```python
-from nodus_workflow import FlowRehydrator, InMemoryRunStore
+from nodus_flow import FlowRehydrator, InMemoryRunStore
 
 store = InMemoryRunStore()
 rehydrator = FlowRehydrator(store=store, scheduler=scheduler)
@@ -154,8 +177,9 @@ PENDING → RUNNING → WAITING → (event fires) → EXECUTING → COMPLETED
 - **Protocol-based handlers.** Any async callable `(context: dict) → dict`
   satisfies `NodeHandler`.
 - **Thread-safe.** `SchedulerEngine` and `InMemoryRunStore` use `threading.Lock`.
-- **Separate from nodus-lang.** No nodus-lang import required — use as a
-  standalone workflow engine or integrate with any Python application.
+- **Separate from nodus-lang.** No nodus-lang import required — use it
+  standalone or inside any Python application. See [Naming](#naming) for what
+  this does *not* do.
 
 ---
 

@@ -1,19 +1,25 @@
-# nodus-workflow
+# nodus-flow
 
 > FlowDefinition/FlowNode/FlowEdge, FlowStatus/FlowRun, SchedulerEngine (priority queue + WAIT/RESUME), FlowExecutor, FlowRehydrator.
 > Part of the [Masterplan Infinite Weave](https://www.the-master-plan.com/) ecosystem.
 > Created by Shawn Knight.
 
-**Notes:** Standalone workflow primitives; lighter than in-tree nodus_lang_workflow. No server wiring.
+**Notes:** A standalone asyncio DAG runner. **Not** the engine behind the Nodus
+`workflow` keyword — that ships inside nodus-lang as `nodus_lang_workflow` and is
+not separately installable. This library's design came from aindy-runtime; it
+shares no code with nodus-lang and does not depend on it. Renamed from
+`nodus-workflow` at v0.2.0 because the old name misled a source-level audit of
+Nodus (nodus-lang#483).
 
 ## Status
 
-v0.1.0 — prepared, not yet published. All GitHub repos aligned at github.com/Masterplanner25.
+v0.2.0 — renamed from `nodus-workflow` (published on PyPI as 0.1.0 under the old
+name). All GitHub repos aligned at github.com/Masterplanner25.
 
 ## Install
 
 ```
-pip install nodus-workflow  # once published
+pip install nodus-flow
 pip install -e . --no-deps  # dev install
 ```
 
