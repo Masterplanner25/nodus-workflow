@@ -3,9 +3,9 @@ requires = ["setuptools>=80", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "nodus-workflow"
-version = "0.1.0"
-description = "Declarative DAG workflows with WAIT/RESUME, priority scheduling, and distributed rehydration"
+name = "nodus-flow"
+version = "0.2.0"
+description = "Standalone asyncio DAG runner with WAIT/RESUME and rehydration. Not the engine behind the Nodus `workflow` keyword."
 authors = [{ name = "Shawn Knight" }]
 license = { text = "MIT" }
 readme = "README.md"
@@ -17,12 +17,12 @@ persistence = ["sqlalchemy>=2.0.0"]
 dev         = ["pytest>=8.0", "pytest-asyncio>=0.21"]
 
 [project.urls]
-Homepage = "https://github.com/Masterplanner25/nodus-workflow"
-Repository = "https://github.com/Masterplanner25/nodus-workflow"
+Homepage = "https://github.com/Masterplanner25/nodus-flow"
+Repository = "https://github.com/Masterplanner25/nodus-flow"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["nodus_workflow*"]
+include = ["nodus_flow*"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"

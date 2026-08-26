@@ -1,4 +1,7 @@
-"""nodus-workflow — declarative DAG workflows with WAIT/RESUME semantics.
+"""nodus-flow — a standalone asyncio DAG runner with WAIT/RESUME semantics.
+
+Not the engine behind the Nodus `workflow` keyword; that ships inside
+nodus-lang. See the README for the distinction.
 
 Signals:
     WorkflowWaitSignal   — raise inside a NodeHandler to suspend execution

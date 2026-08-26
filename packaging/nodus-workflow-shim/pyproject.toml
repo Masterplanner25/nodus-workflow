@@ -1,0 +1,33 @@
+# Deprecation shim for the old distribution name.
+#
+# `nodus-workflow` 0.1.0 shipped this library under a name that reads as "the
+# Nodus workflow implementation". It is not — see nodus-lang#483. The library
+# now lives at `nodus-flow`; this project keeps the old name installable, holds
+# it so nobody else takes it, and tells a reader who guesses it what they
+# actually want.
+#
+# It ships one module: a `nodus_workflow` alias that re-exports `nodus_flow` and
+# warns once, so existing imports keep working rather than breaking on upgrade.
+
+[build-system]
+requires = ["setuptools>=80", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nodus-workflow"
+version = "0.2.0"
+description = "Deprecated alias for nodus-flow. NOT the engine behind the Nodus `workflow` keyword, which ships inside nodus-lang."
+authors = [{ name = "Shawn Knight" }]
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["nodus-flow>=0.2.0"]
+classifiers = ["Development Status :: 7 - Inactive"]
+
+[project.urls]
+Homepage = "https://github.com/Masterplanner25/nodus-flow"
+Repository = "https://github.com/Masterplanner25/nodus-flow"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["nodus_workflow*"]

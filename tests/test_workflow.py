@@ -1,8 +1,8 @@
-"""nodus-workflow tests — no external services required."""
+"""nodus-flow tests — no external services required."""
 import asyncio
 import pytest
 
-from nodus_workflow import (
+from nodus_flow import (
     FlowDefinition, FlowEdge, FlowExecutor, FlowNode,
     FlowRehydrator, FlowRun, FlowStatus,
     InMemoryRunStore, SchedulerEngine, WorkflowWaitSignal,

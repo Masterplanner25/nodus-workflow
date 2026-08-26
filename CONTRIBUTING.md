@@ -1,16 +1,24 @@
-# Contributing to nodus-workflow
+# Contributing to nodus-flow
 
 ## Note on naming
 
-This is the standalone `nodus-workflow` package. The nodus-lang runtime ships
-a separate in-tree `nodus_workflow` package (`src/nodus_workflow/`) with HTTP/CLI
-surfaces and SQLite store. The two are distinct.
+`nodus-flow` is **not** the engine behind the Nodus `workflow` keyword. That
+engine ships inside `nodus-lang` as `src/nodus_lang_workflow/` and is not
+separately installable. This package is an independent asyncio DAG runner whose
+design came from aindy-runtime; it shares no code with nodus-lang and does not
+depend on it.
+
+It was published as `nodus-workflow` until v0.2.0. The old name misled a
+source-level audit of Nodus into a wrong top-priority finding — see
+[nodus-lang#483](https://github.com/Masterplanner25/Nodus/issues/483) — which is
+why the name changed. `pip install nodus-workflow` still resolves here, but the
+old name is deprecated.
 
 ## Setup
 
 ```bash
-git clone https://github.com/Masterplanner25/nodus-workflow.git
-cd nodus-workflow
+git clone https://github.com/Masterplanner25/nodus-flow.git
+cd nodus-flow
 pip install -e ".[dev]"
 ```
 
