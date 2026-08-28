@@ -1,7 +1,9 @@
 # nodus-workflow — deprecated, renamed to `nodus-flow`
 
 **This package is a deprecated alias.** It installs
-[`nodus-flow`](https://pypi.org/project/nodus-flow/) and ships no code of its own.
+[`nodus-flow`](https://pypi.org/project/nodus-flow/) and re-exports it, so existing
+`import nodus_workflow` code keeps working — with a `DeprecationWarning` on import.
+It receives no further releases.
 
 ## If you are looking for the Nodus `workflow` keyword
 
